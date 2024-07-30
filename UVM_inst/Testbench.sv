@@ -5,6 +5,15 @@
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "interface.sv"
+`include "sequence_item.sv"
+`include "sequence.sv"
+`include "sequencer.sv"
+`include "driver.sv"
+`include "monitor.sv"
+`include "agent.sv"
+`include "scoreboard.sv"
+`include "env.sv"
+`include "test.sv"
 
 module top;
 
@@ -22,6 +31,23 @@ module top;
         .CarryOut(intf.carry_out)
     );
 
+    //---------------------------------------------------
+    // Interface Setting
+    //---------------------------------------------------
+    initial begin
+        uvm_config_db #(virtual alu_interface)::set(null, "*", "vif", intf)
+    end
+
+    //---------------------------------------------------
+    //Start the test
+    //---------------------------------------------------
+    initial begin
+        run_test();
+    end
+
+    //---------------------------------------------------
+    // Generate clock
+    //---------------------------------------------------
     initial begin
         clock = 0;
         #5;
@@ -31,7 +57,9 @@ module top;
         end
     end
 
-
+    //---------------------------------------------------
+    //Finish simulation
+    //---------------------------------------------------
     initial begin
         #5000;                          //wait for 500ns
         $display("5000 ns cap");        //print text

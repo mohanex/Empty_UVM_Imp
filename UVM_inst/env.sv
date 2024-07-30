@@ -2,6 +2,9 @@
 class alu_env extends uvm_env;
     `uvm_component_utils(alu_env)
 
+    alu_agent agnt;
+    alu_scoreboard scoreboard;
+
 
     function new(string name ="alu_env", uvm_component parent);
         
@@ -14,6 +17,9 @@ class alu_env extends uvm_env;
         
         super.build_phase(phase);
         `uvm_info("ENV_CLASS", "build phase", UVM_HIGH)
+
+        agnt = alu_agent::type_id::create("agnt", this);
+        scoreboard = alu_scoreboard::type_id::create("scoreboard", this);
         
     endfunction
 
