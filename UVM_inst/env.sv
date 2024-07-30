@@ -28,6 +28,8 @@ class alu_env extends uvm_env;
         super.connect_phase(phase);
         `uvm_info("ENV_CLASS", "connect phase", UVM_HIGH)
 
+        agnt.mon.monitor_port.connect(scoreboard.scoreboard_port);
+
     endfunction
 
     task run_phase(uvm_phase phase);
